@@ -9,14 +9,16 @@ package latihan1Model;
  *
  * @author admin
  */
-public class Posting {
-private String term;
+public class Posting implements Comparable<Posting> {
+
+    private String term;
     private Document document;
-    
+
     public Posting(Document document) {
         this.document = document;
     }
-    public Posting(String term, Document document){
+
+    public Posting(String term, Document document) {
         this.document = document;
         this.term = term;
     }
@@ -47,5 +49,10 @@ private String term;
      */
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    @Override
+    public int compareTo(Posting o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

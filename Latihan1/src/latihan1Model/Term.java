@@ -5,6 +5,8 @@
  */
 package latihan1Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
@@ -12,11 +14,14 @@ package latihan1Model;
 public class Term {
 
     private String term;
-    private PostingList list;
+    private ArrayList<Posting> postingList = new ArrayList<Posting>();
 
-    public Term(String term, PostingList list) {
+    public Term(String term) {
         this.term = term;
-        this.list = list;
+    }
+    
+    public int getNumberOfTerm(){
+        return postingList.size();
     }
 
     /**
@@ -36,15 +41,15 @@ public class Term {
     /**
      * @return the list
      */
-    public PostingList getList() {
-        return list;
+    public ArrayList<Posting> getPostingList() {
+        return postingList;
     }
 
     /**
      * @param list the list to set
      */
-    public void setList(PostingList list) {
-        this.list = list;
+    public void setPostingList(ArrayList<Posting> postingList) {
+        this.postingList = postingList;
     }
-    
+
 }
