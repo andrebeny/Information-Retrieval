@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class InvertedIndex {
 
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
-    private ArrayList<Posting> postingList = new ArrayList<Posting>();
+    private ArrayList<Term> dictionary = new ArrayList<Term>();
 
     public void addNewDocument(Document document) {
         this.listOfDocument.add(document);
