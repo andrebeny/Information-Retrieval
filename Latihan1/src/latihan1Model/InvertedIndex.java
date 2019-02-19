@@ -43,4 +43,18 @@ public class InvertedIndex {
         return list;
     }
 
+    public ArrayList<Posting> getSortedPostingList() {
+        // siapkan posting List
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        // panggil list yang belum terurut
+        list = this.getUnsortedPostingList();
+        // urutkan
+        Collections.sort(list);
+        return list;
+    }
+    
+    public void makeDictionary(){
+        
+    }
+
 }

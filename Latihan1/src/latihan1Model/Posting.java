@@ -52,7 +52,7 @@ public class Posting implements Comparable<Posting> {
     }
 
     @Override
-    public int compareTo(Posting o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public int compareTo(Posting posting) {
+      return term.compareToIgnoreCase(posting.getTerm());
+              }
 }
