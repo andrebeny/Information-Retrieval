@@ -28,7 +28,7 @@ public class docTest4 {
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
         // panggil function unsorted Posting List
-        ArrayList<Posting> list = index.getSortedPostingList();
+        ArrayList<Posting> list = index.getUnsortedPostingList();
         // panggil list posting
         System.out.println("Ukuran list = " + list.size());
         for (int i = 0; i < list.size(); i++) {

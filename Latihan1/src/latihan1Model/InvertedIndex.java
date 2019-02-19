@@ -42,12 +42,5 @@ public class InvertedIndex {
         }
         return list;
     }
-  public ArrayList<Posting> getSortedPostingList(){
-      ArrayList<Posting> list = new ArrayList<Posting>();
-      Collections.sort(list);
-      for(Posting pst : list){
-          System.out.println(pst);
-      }
-      return list;
-  }
+
 }
