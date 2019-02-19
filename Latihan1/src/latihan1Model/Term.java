@@ -16,12 +16,16 @@ public class Term {
     private String term;
     private ArrayList<Posting> postingList = new ArrayList<Posting>();
 
+    public Term() {
+
+    }
+
     public Term(String term) {
         this.term = term;
     }
-    
-    public int getNumberOfTerm(){
-        return postingList.size();
+
+    public int getNumberOfTerm() {
+        return getPostingList().size();
     }
 
     /**
