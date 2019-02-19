@@ -17,6 +17,9 @@ public class docTest {
     public static void main(String[] args) {
         Document doc1 = new Document(1, "computer information retrieval");
         Document doc2 = new Document(2, "computer organization and architecture");
+        ArrayList<Document> listOfDocument = new ArrayList<Document>();
+        listOfDocument.add(doc1);
+        listOfDocument.add(doc2);
         // mengeluarkan kata computer information retrieval
         // dipotong-potong menjadi 3 string
         String tokenDoc1[] = doc1.getListofTerm();
@@ -35,6 +38,16 @@ public class docTest {
             Posting tempPost = new Posting(tokenDoc2[i], doc2);
             list.add(tempPost);
             System.out.println("term " + i + " = " + tokenDoc2[i]);
+        }
+        // loop sebanyak term
+        for (int i = 0; i < listOfDocument.size(); i++) {
+            String[] termResult = listOfDocument.get(i).getListofTerm();
+            //loop sebanyak term
+            for (int j = 0; j < termResult.length; j++) {
+                //buat object temp posting
+                Posting tempPosting = new Posting(termResult[j], listOfDocument.get(i));
+                list.add(tempPosting);
+            }
         }
         
         System.out.println("Ukuran = "+list.size());
