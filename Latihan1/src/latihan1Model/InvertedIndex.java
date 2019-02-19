@@ -52,9 +52,22 @@ public class InvertedIndex {
         Collections.sort(list);
         return list;
     }
-    
-    public void makeDictionary(){
-        
+
+    public void makeDictionary() {
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        list = this.getSortedPostingList();
+
+        Term term = new Term();
+        for (int i = 0; i < list.size(); i++) {
+            if (i > 0) {
+                if (list.get(i).getTerm()
+                        .equalsIgnoreCase(list.get(-1).getTerm())) {
+
+                }
+            } else {
+
+            }
+        }
     }
 
 }
