@@ -23,7 +23,7 @@ public class InvertedIndex {
     private ArrayList<Term> dictionary = new ArrayList<Term>();
 
     public void addNewDocument(Document document) {
-        this.listOfDocument.add(document);
+        this.getListOfDocument().add(document);
     }
 
     //belum diurutkan berdasarkan term
@@ -31,12 +31,12 @@ public class InvertedIndex {
         ArrayList<Posting> list = new ArrayList<Posting>();
 
         // loop sebanyak term
-        for (int i = 0; i < listOfDocument.size(); i++) {
-            String[] termResult = listOfDocument.get(i).getListofTerm();
+        for (int i = 0; i < getListOfDocument().size(); i++) {
+            String[] termResult = getListOfDocument().get(i).getListofTerm();
             //loop sebanyak term
             for (int j = 0; j < termResult.length; j++) {
                 //buat object temp posting
-                Posting tempPosting = new Posting(termResult[j], listOfDocument.get(i));
+                Posting tempPosting = new Posting(termResult[j], getListOfDocument().get(i));
                 list.add(tempPosting);
             }
         }
@@ -55,21 +55,65 @@ public class InvertedIndex {
 
     public void makeDictionary() {
         //load sorted list
-        ArrayList<Posting> list = new ArrayList<Posting>();
-        list = this.getSortedPostingList();
-
-       
-        Term term = new Term();
+        ArrayList<Posting> list = this.getSortedPostingList();
+        //cek dictionary apakah kosong
         for (int i = 0; i < list.size(); i++) {
-            if (i > 0) {
-                if (list.get(i).getTerm()
-                        .equalsIgnoreCase(list.get(-1).getTerm())) {
-
-                }
+            //cek dictionary kosong atau tidak
+            if (getDictionary().isEmpty()) {
+                Term term = new Term(list.get(i).getTerm());
+                term.getPostingList().add(list.get(i));
+                //tambah ke dictionary
+                getDictionary().add(term);
             } else {
-
+                // dictionary tidak kosong
+                Term tempTerm = new Term(list.get(i).getTerm());
+                // cek sudah ada di dictionary atau belum
+                int position = Collections.binarySearch(getDictionary(), tempTerm);
+                if (position < 0) {
+                    //term baru
+                    //tambah postinglist ke term
+                    tempTerm.getPostingList().add(list.get(i));
+                    //tambahkan term ke dictionary
+                    getDictionary().add(tempTerm);
+                } else {
+                    //term sudah ada
+                    //tambahkan psotinglist saja dari existing term
+                    getDictionary().get(position).getPostingList().add(list.get(i));
+                    //urutkan posting list
+                    Collections.sort(getDictionary().get(position).getPostingList());
+                }
+                //urutkan term dictionary
+                Collections.sort(getDictionary());
             }
         }
+    }
+
+    /**
+     * @return the listOfDocument
+     */
+    public ArrayList<Document> getListOfDocument() {
+        return listOfDocument;
+    }
+
+    /**
+     * @param listOfDocument the listOfDocument to set
+     */
+    public void setListOfDocument(ArrayList<Document> listOfDocument) {
+        this.listOfDocument = listOfDocument;
+    }
+
+    /**
+     * @return the dictionary
+     */
+    public ArrayList<Term> getDictionary() {
+        return dictionary;
+    }
+
+    /**
+     * @param dictionary the dictionary to set
+     */
+    public void setDictionary(ArrayList<Term> dictionary) {
+        this.dictionary = dictionary;
     }
 
 }
