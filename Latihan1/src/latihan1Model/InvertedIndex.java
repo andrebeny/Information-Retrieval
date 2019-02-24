@@ -68,16 +68,16 @@ public class InvertedIndex {
     }
     
     public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2){
-       
-        for( p1 != null && p2 != null){
-            if (true) {
-                
-            }else if{
-                
-            }else{
-                
-            }
-       }
+//       
+//        for( p1 != null && p2 != null){
+//            if (true) {
+//                
+//            }else if{
+//                
+//            }else{
+//                
+//            }
+//       }
         return null;
     }
 
