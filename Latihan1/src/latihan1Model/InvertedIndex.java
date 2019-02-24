@@ -66,6 +66,10 @@ public class InvertedIndex {
         }
         return null;
     }
+    
+    public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2){
+        return null;
+    }
 
     public ArrayList<Posting> searchOneWord(String word) {
         Term tempTerm = new Term(word);

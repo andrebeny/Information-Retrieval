@@ -37,12 +37,12 @@ public class docTest7 {
             System.out.println(result.get(i).getDocument().getContent());
         }
 
-        // panggil fungsi search
-//        ArrayList<Posting> result1 = index.search("machine learning");
-////        // tampilkan isi document dan id-nya
-//        for (int i = 0; i < result1.size(); i++) {
-//            System.out.println("id_doc = " + result1.get(i).getDocument().getId());
-//            System.out.println(result1.get(i).getDocument().getContent());
-//        }
+         //panggil fungsi search
+        ArrayList<Posting> result1 = index.searchOneWord("machine");
+//        // tampilkan isi document dan id-nya
+        for (int i = 0; i < result1.size(); i++) {
+            System.out.println("id_doc = " + result1.get(i).getDocument().getId());
+            System.out.println(result1.get(i).getDocument().getContent());
+        }
     }
 }
