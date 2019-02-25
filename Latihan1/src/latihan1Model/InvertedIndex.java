@@ -27,6 +27,22 @@ public class InvertedIndex {
         this.dictionary = new ArrayList<>();
     }
 
+    public ArrayList<Document> getListOfDocument() {
+        return listOfDocument;
+    }
+
+    public void setListOfDocument(ArrayList<Document> listOfDocument) {
+        this.listOfDocument = listOfDocument;
+    }
+
+    public ArrayList<Term> getDictionary() {
+        return dictionary;
+    }
+
+    public void setDictionary(ArrayList<Term> dictionary) {
+        this.dictionary = dictionary;
+    }
+
     public void addNewDocument(Document document) {
         this.getListOfDocument().add(document);
     }
@@ -61,17 +77,21 @@ public class InvertedIndex {
     public ArrayList<Posting> search(String query) {
         // buat index/dictionary
         makeDictionary();
-        String tempQuery[] = query.split(" ");
         ArrayList<ArrayList<Posting>> string = new ArrayList<>();
+        String[] tempQuery = query.split(" ");
+
         for (int i = 0; i < tempQuery.length; i++) {
-             string.add(searchOneWord(tempQuery[i]));
+            string.add(searchOneWord(tempQuery[i]));
         }
-        return intersection(string.get(0), string.get(1));
+        //error
+        //return intersection(string.get(0), string.get(1));
+        return intersection(string.get(1), string.get(1));
     }
+    
 
     public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2) {
-        
-        
+
+//initialize menggunakan object result
         ArrayList<Posting> result = new ArrayList<>();
         int indp1 = 0;
         int indp2 = 0;
@@ -79,10 +99,10 @@ public class InvertedIndex {
         Posting pst1 = p1.get(indp1);
         Posting pst2 = p2.get(indp2);
 
-        
         if (p1 == null && p2 == null) {
             return new ArrayList<>();
         }
+
         while (true) {
             if (pst1.getDocument().getId() == pst2.getDocument().getId()) {
                 try {
@@ -165,34 +185,6 @@ public class InvertedIndex {
             }
         }
 
-    }
-
-    /**
-     * @return the listOfDocument
-     */
-    public ArrayList<Document> getListOfDocument() {
-        return listOfDocument;
-    }
-
-    /**
-     * @param listOfDocument the listOfDocument to set
-     */
-    public void setListOfDocument(ArrayList<Document> listOfDocument) {
-        this.listOfDocument = listOfDocument;
-    }
-
-    /**
-     * @return the dictionary
-     */
-    public ArrayList<Term> getDictionary() {
-        return dictionary;
-    }
-
-    /**
-     * @param dictionary the dictionary to set
-     */
-    public void setDictionary(ArrayList<Term> dictionary) {
-        this.dictionary = dictionary;
     }
 
 }

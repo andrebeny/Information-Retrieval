@@ -15,6 +15,7 @@ import latihan1Model.Posting;
  * @author ASUS
  */
 public class docTest8Intersect {
+
     public static void main(String[] args) {
         Document doc1 = new Document(1, "computer information retrieval");
         Document doc2 = new Document(2, "computer organization and architecture");
@@ -29,14 +30,13 @@ public class docTest8Intersect {
         // panggil method search
         index.makeDictionary();
         //ArrayList<Posting> query = index.searchOneWord("computer");
-      String result1 = ("computer machine");
-        ArrayList<Posting> join = index.search(result1);
+
+        String query1 = "computer machine";
+        ArrayList<Posting> join = index.search(query1);
         //tampilkan isi document dan id nya
         for (int i = 0; i < join.size(); i++) {
-            //System.out.println("id_doc = " + join.get(i).getDocument().getId());
-            System.out.println(join.get(i).getDocument().getContent());
+            System.out.println((i + 1) + " . " + join.get(i).getDocument().getContent());
         }
 
- 
     }
 }
