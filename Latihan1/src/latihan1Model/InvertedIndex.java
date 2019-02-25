@@ -23,7 +23,8 @@ public class InvertedIndex {
     private ArrayList<Term> dictionary = new ArrayList<Term>();
 
     public InvertedIndex() {
-
+        this.listOfDocument = new ArrayList<>();
+        this.dictionary = new ArrayList<>();
     }
 
     public void addNewDocument(Document document) {
@@ -61,24 +62,57 @@ public class InvertedIndex {
         // buat index/dictionary
         makeDictionary();
         String tempQuery[] = query.split(" ");
+        ArrayList<ArrayList<Posting>> string = new ArrayList<>();
         for (int i = 0; i < tempQuery.length; i++) {
-            String string = tempQuery[i];
+             string.add(searchOneWord(tempQuery[i]));
         }
-        return null;
+        return intersection(string.get(0), string.get(1));
     }
-    
-    public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2){
-//       
-//        for( p1 != null && p2 != null){
-//            if (true) {
-//                
-//            }else if{
-//                
-//            }else{
-//                
-//            }
-//       }
-        return null;
+
+    public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2) {
+        
+        
+        ArrayList<Posting> result = new ArrayList<>();
+        int indp1 = 0;
+        int indp2 = 0;
+
+        Posting pst1 = p1.get(indp1);
+        Posting pst2 = p2.get(indp2);
+
+        
+        if (p1 == null && p2 == null) {
+            return new ArrayList<>();
+        }
+        while (true) {
+            if (pst1.getDocument().getId() == pst2.getDocument().getId()) {
+                try {
+                    result.add(pst1);
+                    indp1++;
+                    indp2++;
+                    pst1 = p1.get(indp1);
+                    pst2 = p2.get(indp2);
+                } catch (Exception e) {
+                    break;
+                }
+
+            } else if (pst1.getDocument().getId() < pst2.getDocument().getId()) {
+                try {
+                    indp1++;
+                    pst1 = p1.get(indp1);
+                } catch (Exception e) {
+                    break;
+                }
+
+            } else {
+                try {
+                    indp2++;
+                    pst2 = p2.get(indp2);
+                } catch (Exception e) {
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     public ArrayList<Posting> searchOneWord(String word) {

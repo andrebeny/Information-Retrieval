@@ -28,12 +28,12 @@ public class docTest8Intersect {
         index.addNewDocument(doc3);
         // panggil method search
         index.makeDictionary();
-        ArrayList<Posting> result = index.searchOneWord("computer");
-        ArrayList<Posting> result1 = index.searchOneWord("machine");
-        ArrayList<Posting> join = index.intersection(result1, result);
+        //ArrayList<Posting> query = index.searchOneWord("computer");
+      String result1 = ("computer machine");
+        ArrayList<Posting> join = index.search(result1);
         //tampilkan isi document dan id nya
         for (int i = 0; i < join.size(); i++) {
-            System.out.println("id_doc = " + join.get(i).getDocument().getId());
+            //System.out.println("id_doc = " + join.get(i).getDocument().getId());
             System.out.println(join.get(i).getDocument().getContent());
         }
 
