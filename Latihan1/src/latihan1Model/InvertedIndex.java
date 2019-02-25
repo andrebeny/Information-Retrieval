@@ -6,12 +6,7 @@
 package latihan1Model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.function.Consumer;
 
 /**
  *
@@ -23,8 +18,11 @@ public class InvertedIndex {
     private ArrayList<Term> dictionary = new ArrayList<Term>();
 
     public InvertedIndex() {
-        this.listOfDocument = new ArrayList<>();
-        this.dictionary = new ArrayList<>();
+
+    }
+
+    public void addNewDocument(Document document) {
+        this.getListOfDocument().add(document);
     }
 
     public ArrayList<Document> getListOfDocument() {
@@ -41,10 +39,6 @@ public class InvertedIndex {
 
     public void setDictionary(ArrayList<Term> dictionary) {
         this.dictionary = dictionary;
-    }
-
-    public void addNewDocument(Document document) {
-        this.getListOfDocument().add(document);
     }
 
     //belum diurutkan berdasarkan term
@@ -77,61 +71,64 @@ public class InvertedIndex {
     public ArrayList<Posting> search(String query) {
         // buat index/dictionary
         makeDictionary();
-        ArrayList<ArrayList<Posting>> string = new ArrayList<>();
         String[] tempQuery = query.split(" ");
+        ArrayList<ArrayList<Posting>> string = new ArrayList<>();
 
         for (int i = 0; i < tempQuery.length; i++) {
             string.add(searchOneWord(tempQuery[i]));
         }
-        //error
-        //return intersection(string.get(0), string.get(1));
-        return intersection(string.get(1), string.get(1));
+        return intersection(string.get(0), string.get(1));
     }
-    
 
     public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2) {
-
-//initialize menggunakan object result
+        //initialize menggunakan object result
         ArrayList<Posting> result = new ArrayList<>();
-        int indp1 = 0;
-        int indp2 = 0;
+        //variable baru indexP1 dan indexp2
+        int indexP1 = 0;
+        int indexP2 = 0;
 
-        Posting pst1 = p1.get(indp1);
-        Posting pst2 = p2.get(indp2);
+        //membuat variable pst1 dan pst2
+        Posting pst1 = p1.get(indexP1);
+        Posting pst2 = p2.get(indexP2);
 
+        //cek apakah p1 dan p2 sama dengan null
         if (p1 == null && p2 == null) {
             return new ArrayList<>();
         }
 
         while (true) {
+            //cek apakah id dokumen pst1 == id odokumen pst2
             if (pst1.getDocument().getId() == pst2.getDocument().getId()) {
                 try {
+                    //pst1 ditambahkan ke result
                     result.add(pst1);
-                    indp1++;
-                    indp2++;
-                    pst1 = p1.get(indp1);
-                    pst2 = p2.get(indp2);
+                    indexP1++;
+                    indexP2++;
+                    pst1 = p1.get(indexP1);
+                    pst2 = p2.get(indexP2);
                 } catch (Exception e) {
                     break;
                 }
 
-            } else if (pst1.getDocument().getId() < pst2.getDocument().getId()) {
+            } //cek apakah id dokumen pst1 < id dokumen pst2
+            else if (pst1.getDocument().getId() < pst2.getDocument().getId()) {
                 try {
-                    indp1++;
-                    pst1 = p1.get(indp1);
+                    indexP1++;
+                    pst1 = p1.get(indexP1);
                 } catch (Exception e) {
                     break;
                 }
 
             } else {
                 try {
-                    indp2++;
-                    pst2 = p2.get(indp2);
+                    indexP2++;
+                    pst2 = p2.get(indexP2);
                 } catch (Exception e) {
                     break;
                 }
             }
         }
+        //mengembalikan ke result
         return result;
     }
 

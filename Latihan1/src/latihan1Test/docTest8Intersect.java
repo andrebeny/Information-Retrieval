@@ -27,15 +27,16 @@ public class docTest8Intersect {
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
-        // panggil method search
+        // panggil fungsi search
         index.makeDictionary();
-        //ArrayList<Posting> query = index.searchOneWord("computer");
-
-        String query1 = "computer machine";
-        ArrayList<Posting> join = index.search(query1);
+        ArrayList<Posting> result = index.searchOneWord("architecture");
+        ArrayList<Posting> result1 = index.searchOneWord("machine");
+        //panggil fungsi intersect
+        ArrayList<Posting> join = index.intersection(result1, result);
         //tampilkan isi document dan id nya
         for (int i = 0; i < join.size(); i++) {
-            System.out.println((i + 1) + " . " + join.get(i).getDocument().getContent());
+            System.out.println("id_doc = " + join.get(i).getDocument().getId());
+            System.out.println(join.get(i).getDocument().getContent());
         }
 
     }
