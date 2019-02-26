@@ -20,6 +20,7 @@ public class docTest8Intersect {
         Document doc1 = new Document(1, "computer information retrieval");
         Document doc2 = new Document(2, "computer organization and architecture");
         Document doc3 = new Document(3, "machine learning architecture");
+        Document doc4 = new Document(4, "machine learning intellegence");
 
         // buat object invertedIndex
         InvertedIndex index = new InvertedIndex();
@@ -27,9 +28,10 @@ public class docTest8Intersect {
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
+        index.addNewDocument(doc4);
         // panggil fungsi search
         index.makeDictionary();
-        ArrayList<Posting> result = index.searchOneWord("architecture");
+        ArrayList<Posting> result = index.searchOneWord("learning");
         ArrayList<Posting> result1 = index.searchOneWord("machine");
         //panggil fungsi intersect
         ArrayList<Posting> join = index.intersection(result1, result);
