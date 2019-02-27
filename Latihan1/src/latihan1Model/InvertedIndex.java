@@ -255,7 +255,7 @@ public class InvertedIndex {
 //        return N / ni;
 //    }
     public int getDocumentFrequency(String term) {
-
+        Term tempTerm = new Term();
         return 0;
     }
 
