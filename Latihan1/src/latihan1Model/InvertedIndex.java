@@ -72,12 +72,18 @@ public class InvertedIndex {
         // buat index/dictionary
         makeDictionary();
         String[] tempQuery = query.split(" ");
-        ArrayList<ArrayList<Posting>> string = new ArrayList<>();
+        ArrayList<Posting> tempPosting = new ArrayList<>();
 
         for (int i = 0; i < tempQuery.length; i++) {
-            string.add(searchOneWord(tempQuery[i]));
+            String string = tempQuery[i];
+            if (i == 0) {
+                tempPosting = searchOneWord(tempQuery[i]);
+            } else {
+                ArrayList<Posting> tempPosting1 = searchOneWord(tempQuery[i]);
+                tempPosting = intersection(tempPosting, tempPosting1);
+            }
         }
-        return intersection(string.get(0), string.get(1));
+        return tempPosting;
     }
 
     public ArrayList<Posting> intersection(ArrayList<Posting> p1, ArrayList<Posting> p2) {
@@ -182,6 +188,22 @@ public class InvertedIndex {
             }
         }
 
+    }
+
+    public int getDocumentFrequency(String term) {
+        ArrayList<Posting> tempPostings = new ArrayList<Posting>();
+        String[] query = term.split(" ");
+        int N = 0, ni = 0;
+        for (int i = 0; i < listOfDocument.size(); i++) {
+            N = listOfDocument.get(i).getId();
+            ni = tempPostings.get(i).getNumberOfTerm();
+        }
+        return N / ni;
+    }
+
+    public double getInverseDoumentFrequency(String term) {
+
+        return 0;
     }
 
 }
