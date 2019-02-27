@@ -54,8 +54,8 @@ public class Posting implements Comparable<Posting> {
 
     @Override
     public int compareTo(Posting posting) {
-      return term.compareToIgnoreCase(posting.getTerm());
-              }
+        return term.compareToIgnoreCase(posting.getTerm());
+    }
 
     /**
      * @return the numberOfTerm
