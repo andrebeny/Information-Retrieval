@@ -44,12 +44,12 @@ public class testTFIDF5 {
             }
         }
         // number of document
-        String tempString = "silver";
+        String tempString = "delivery";
         int result2 = index.getDocumentFrequency(tempString);
         System.out.println("Number of Doc with " + tempString + " is " + result2);
 
         // idf
-        String tempString1 = "silver";
+        String tempString1 = "delivery";
         double result3 = index.getDocumentFrequency(tempString1);
         System.out.println("IDF of " + tempString1 + " is " + result3);
 

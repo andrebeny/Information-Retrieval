@@ -257,9 +257,9 @@ public class InvertedIndex {
     public int getDocumentFrequency(String term) {
         Term tempTerm = new Term(term);
 
-        int pos = Collections.binarySearch(getDictionary(), tempTerm);
-        if (pos > 0) {
-            return getDictionary().get(pos).getPostingList().size();
+        int post = Collections.binarySearch(getDictionary(), tempTerm);
+        if (post > 0) {
+            return getDictionary().get(post).getPostingList().size();
         }
         return 0;
     }
@@ -267,8 +267,8 @@ public class InvertedIndex {
     public double getInverseDoumentFrequency(String term) {
         double N = this.listOfDocument.size();
         double n = getDocumentFrequency(term);
-        double idf =  Math.log(N / n);
-        
+        double idf = Math.log(N / n);
+
         return idf;
     }
 
