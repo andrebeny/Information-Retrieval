@@ -16,12 +16,13 @@ public class Term implements Comparable<Term> {
     private String term;
     private ArrayList<Posting> postingList = new ArrayList<Posting>();
 
-    public Term() {
-
-    }
-
+    
     public Term(String term) {
         this.term = term;
+    }
+
+    Term() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getNumberOfDocument() {

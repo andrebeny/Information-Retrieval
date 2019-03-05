@@ -255,15 +255,33 @@ public class InvertedIndex {
 //        return N / ni;
 //    }
     public int getDocumentFrequency(String term) {
-        Term tempTerm = new Term();
+        Term tempTerm = new Term(term);
+
+        int pos = Collections.binarySearch(getDictionary(), tempTerm);
+        if (pos > 0) {
+            return getDictionary().get(pos).getPostingList().size();
+        }
         return 0;
     }
 
     public double getInverseDoumentFrequency(String term) {
-        return 0.0;
+        double N = this.listOfDocument.size();
+        double n = getDocumentFrequency(term);
+        return Math.log(N / n);
     }
 
     public int getTermFrequency(String term, int idDocument) {
-        return 0;
+        int banyak = 0;
+        for (int i = 0; i < getListOfDocument().size(); i++) {
+            if (getListOfDocument().get(i).getId() == idDocument) {
+                String[] terms = getListOfDocument().get(i).getListofTerm();
+                for (int j = 0; j < terms.length; j++) {
+                    if (term.equalsIgnoreCase(terms[j])) {
+                        banyak = banyak + 1;
+                    }
+                }
+            }
+        }
+        return banyak;
     }
 }
