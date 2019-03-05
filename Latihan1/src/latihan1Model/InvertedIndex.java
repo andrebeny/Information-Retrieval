@@ -267,21 +267,23 @@ public class InvertedIndex {
     public double getInverseDoumentFrequency(String term) {
         double N = this.listOfDocument.size();
         double n = getDocumentFrequency(term);
-        return Math.log(N / n);
+        double idf =  Math.log(N / n);
+        
+        return idf;
     }
 
     public int getTermFrequency(String term, int idDocument) {
-        int banyak = 0;
+        int a = 0;
         for (int i = 0; i < getListOfDocument().size(); i++) {
             if (getListOfDocument().get(i).getId() == idDocument) {
                 String[] terms = getListOfDocument().get(i).getListofTerm();
                 for (int j = 0; j < terms.length; j++) {
                     if (term.equalsIgnoreCase(terms[j])) {
-                        banyak = banyak + 1;
+                        a = a + 1;
                     }
                 }
             }
         }
-        return banyak;
+        return a;
     }
 }

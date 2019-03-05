@@ -22,6 +22,7 @@ public class testTFIDF6 {
         Document doc1 = new Document(1, "Shipment of gold damaged in a fire");
         Document doc2 = new Document(2, "delivery of silver arrived in a silver truck");
         Document doc3 = new Document(3, "shipment of gold arrived in a truck");
+        Document doc4 = new Document(4, "");
 
         // buat object invertedIndex
         InvertedIndex index = new InvertedIndex();
@@ -55,10 +56,9 @@ public class testTFIDF6 {
 
         //tf-idf
         String tempString2 = "silver";
-        int idDoc=2;
+        int idDoc = 2;
         int result4 = index.getTermFrequency(tempString2, idDoc);
-        System.out.println("TF of "+tempString2+" in idDoc = "+idDoc+ " is "+result4);
-        
-    }
-    }
+        System.out.println("TF of " + tempString2 + " in idDoc = " + idDoc + " is " + result4);
 
+    }
+}
