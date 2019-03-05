@@ -50,13 +50,13 @@ public class testTFIDF6 {
         System.out.println("Number of Doc with " + tempString + " is " + result2);
 
         // idf
-        String tempString1 = "silver";
+        String tempString1 = "truck";
         double result3 = index.getDocumentFrequency(tempString1);
         System.out.println("IDF of " + tempString1 + " is " + result3);
 
         //tf-idf
-        String tempString2 = "silver";
-        int idDoc = 2;
+        String tempString2 = "gold";
+        int idDoc = 3;
         int result4 = index.getTermFrequency(tempString2, idDoc);
         System.out.println("TF of " + tempString2 + " in idDoc = " + idDoc + " is " + result4);
 

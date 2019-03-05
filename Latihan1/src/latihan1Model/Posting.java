@@ -14,14 +14,22 @@ public class Posting implements Comparable<Posting> {
     private String term;
     private Document document;
     private int numberOfTerm = 1;
+    private double weight = 0.0;
+
+    public Posting() {
+        numberOfTerm = 1;
+        setWeight(0);
+    }
 
     public Posting(Document document) {
         this.document = document;
+        setWeight(0);
     }
 
     public Posting(String term, Document document) {
         this.document = document;
         this.term = term;
+        setWeight(0);
     }
 
     /**
@@ -70,4 +78,19 @@ public class Posting implements Comparable<Posting> {
     public void setNumberOfTerm(int numberOfTerm) {
         this.numberOfTerm = numberOfTerm;
     }
+
+    /**
+     * @return the weight
+     */
+    public double getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
 }

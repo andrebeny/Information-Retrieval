@@ -101,5 +101,6 @@ public class Document implements Comparable<Document> {
     @Override
     public int compareTo(Document t) {
         return Integer.compare(this.id, t.id);
+        //return id - t.getId();
     }
 }
