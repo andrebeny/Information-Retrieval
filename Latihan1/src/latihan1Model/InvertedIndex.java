@@ -286,4 +286,8 @@ public class InvertedIndex {
         }
         return a;
     }
+    public ArrayList<Posting> makeIDF(int idDoc){
+        ArrayList<Posting> temp = new ArrayList<>();
+        return temp;
+    }
 }
