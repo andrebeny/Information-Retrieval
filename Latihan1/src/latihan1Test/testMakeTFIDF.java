@@ -31,11 +31,11 @@ public class testMakeTFIDF {
 
         // panggil fungsi search
         index.makeDictionaryWithTermNumber();
-        ArrayList<Posting> result = index.makeTFIDF(3);
-        // tampilkan isi document dan id-nya
-        for (int i = 0; i < result.size(); i++) {
-            System.out.println(result.get(i).getTerm() + " : " + result.get(i).getWeight());
-        }
+//        //ArrayList<Posting> result = index.makeTFIDF(3);
+//        // tampilkan isi document dan id-nya
+//        for (int i = 0; i < result.size(); i++) {
+//            System.out.println(result.get(i).getTerm() + " : " + result.get(i).getWeight());
+//        }
         
     }
 }
