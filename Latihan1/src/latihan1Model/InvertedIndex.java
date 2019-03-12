@@ -264,12 +264,37 @@ public class InvertedIndex {
         return 0;
     }
 
-    public double getInverseDoumentFrequency(String term) {
-        double N = this.listOfDocument.size();
-        double n = getDocumentFrequency(term);
-        double idf = Math.log10(N / n);
-
-        return idf;
+//    public double getInverseDocumentFrequency(String term) {
+//        double N = this.listOfDocument.size();
+//        double n = getDocumentFrequency(term);
+//        double idf = Math.log10(N / n);
+//
+//        return idf;
+//    }
+    /**
+     * Fungsi untuk mencari inverse term dari sebuah index
+     *
+     * @param term
+     * @return
+     */
+    public double getInverseDocumentFrequency(String term) {
+        Term tempTerm = new Term(term);
+        // cek apakah term ada di dictionary
+        int index = Collections.binarySearch(dictionary, tempTerm);
+        if (index > 0) {
+            // term ada
+            // jumlah total dokumen
+            int N = listOfDocument.size();
+            // jumlah dokumen dengan term i
+            int ni = getDocumentFrequency(term);
+            // idf = log10(N/ni)
+            double Nni = (double) N/ni;
+            return Math.log10(Nni);
+        } else {
+            // term tidak ada
+            // nilai idf = 0
+            return 0.0;
+        }
     }
 
     public int getTermFrequency(String term, int idDocument) {
@@ -297,7 +322,7 @@ public class InvertedIndex {
 
         for (int i = 0; i < tempTerm.size(); i++) {
             //rumus menghitung weight, hasil term x dengan document
-            double weight = getTermFrequency(tempTerm.get(i).getTerm(), idDocument) * getInverseDoumentFrequency(tempTerm.get(i).getTerm());
+            double weight = getTermFrequency(tempTerm.get(i).getTerm(), idDocument) * getInverseDocumentFrequency(tempTerm.get(i).getTerm());
 
             Posting tempPosting = new Posting();
             tempPosting.setTerm(tempTerm.get(i).getTerm());
