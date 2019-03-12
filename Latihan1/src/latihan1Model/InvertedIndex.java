@@ -288,7 +288,7 @@ public class InvertedIndex {
             // jumlah dokumen dengan term i
             int ni = getDocumentFrequency(term);
             // idf = log10(N/ni)
-            double Nni = (double) N/ni;
+            double Nni = (double) N / ni;
             return Math.log10(Nni);
         } else {
             // term tidak ada
@@ -348,10 +348,42 @@ public class InvertedIndex {
 //    }
     public double getInnerProduct(ArrayList<Posting> p1,
             ArrayList<Posting> p2) {
-        return 0.0;
+
+        int post;
+        double hasil = 0;
+
+        for (int i = 0; i < p1.size(); i++) {
+            post = Collections.binarySearch(p2, p1.get(i));
+            if (post > 0) {
+                hasil = hasil + (p1.get(i).getWeight() * p2.get(i).getWeight());
+            }
+        }
+        return hasil;
     }
 
     public ArrayList<Posting> getQueryPosting(String query) {
-        return null;
-    }
+        Document nquery = new Document();
+        //menambah dokumen baru
+        addNewDocument(nquery);
+        //siapkan query dari term
+        String[] qterm;
+        //siapkan objek baru dari posting list
+        ArrayList<Posting> qPost = new ArrayList<>();
+        //perulangan dokumen yang disimpan
+        for (int i = 0; i < getListOfDocument().size(); i++) {
+            qterm = getListOfDocument().get(i).getListofTerm();
+            //looping term
+            for (int j = 0; j < qterm.length; j++) {
+                Posting post = new Posting(qterm[j], getListOfDocument().get(i));
+                qPost.add(post);
+            }
+        }
+        double tf = 0;
+        for (int i = 0; i < qPost.size(); i++) {
+            tf = getTermFrequency(qPost.get(i).getTerm(),i);
+            makeTFIDF(i);
+        }
+        //        
+        return qPost;
+     }
 }
