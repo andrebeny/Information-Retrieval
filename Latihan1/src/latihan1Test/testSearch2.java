@@ -9,33 +9,48 @@ import java.util.ArrayList;
 import latihan1Model.Document;
 import latihan1Model.InvertedIndex;
 import latihan1Model.Posting;
+import latihan1Model.Term;
 
 /**
  *
  * @author admin
  */
-public class testTFIDF7 {
+public class testSearch2 {
 
     public static void main(String[] args) {
-        // seting dokumen
-        Document doc1 = new Document(1, "shipment of gold damaged in a fire");
+        Document doc1 = new Document(1, "Shipment of gold damaged in a fire");
         Document doc2 = new Document(2, "delivery of silver arrived in a silver truck");
         Document doc3 = new Document(3, "shipment of gold arrived in a truck");
 
         // buat object invertedIndex
         InvertedIndex index = new InvertedIndex();
         // tmbahkan document ke index
-        index.addNewDocument(doc1);
-        index.addNewDocument(doc2);
-        index.addNewDocument(doc3);
 
-        // panggil fungsi search
+        index.addNewDocument(doc1);
+
+        index.addNewDocument(doc2);
+
+        index.addNewDocument(doc3);
+        // bikin dictionary
+
         index.makeDictionaryWithTermNumber();
-        ArrayList<Posting> result = index.makeTFIDF(1);
-        // tampilkan isi document dan id-nya
-        for (int i = 0; i < result.size(); i++) {
-            System.out.println(result.get(i).getTerm() + " : " + result.get(i).getWeight());
+
+        String query = "silver gold truck";
+        System.out.println("query = " + query);
+        ArrayList<Document> hasilCari1 = index.searchTFIDF(query);
+        for (int i = 0; i < hasilCari1.size(); i++) {
+            Document doc = hasilCari1.get(i);
+            System.out.println("IdDokumen = " + doc.getId());
         }
 
+        // searching
+        // searching
+        System.out.println("query = " + query);
+        ArrayList<Document> hasilCari2 = index.searchCosineSimilarity(query);
+        for (int i = 0; i < hasilCari2.size(); i++) {
+            Document doc = hasilCari2.get(i);
+            System.out.println("IdDokumen = " + doc.getId());
+        }
     }
 }
+

@@ -18,6 +18,10 @@ public class Document implements Comparable<Document> {
     private int id;
     private String content;
 
+    Document() {
+
+    }
+
     public Document(String content) {
         this.content = content;
     }
@@ -27,8 +31,8 @@ public class Document implements Comparable<Document> {
         this.content = content;
     }
 
-    Document() {
-
+    Document(int idDocument) {
+        this.id = idDocument;
     }
 
     /**
@@ -67,36 +71,43 @@ public class Document implements Comparable<Document> {
 
     public ArrayList<Posting> getListofPosting() {
         // panggil fungsi getListOfTerm
-        String[] tempString = getListofTerm();
+        String tempString[] = getListofTerm();
         // buat objek ArrayList<Posting> result untuk menampung hasil
         ArrayList<Posting> result = new ArrayList<Posting>();
         // buat looping sebanyak listOfTerm
         for (int i = 0; i < tempString.length; i++) {
+            // di dalam looping
+            // jika term pertama maka
             if (i == 0) {
                 // buat object tempPosting
-                Posting temPosting = new Posting(new Document(tempString[0]));
+                Posting temPosting = new Posting(tempString[0], this);
                 // set atribut document, gunakan this
                 // tambahkan ke ArrayList result
                 result.add(temPosting);
             } else {
+                // lainnya
                 // sorting ArayList result
                 Collections.sort(result);
                 // cek apakah term sudah ada
-                Posting tempPosting = new Posting(tempString[i], this);
-                int indexCari = Collections.binarySearch(result, tempPosting); // set atribut document, gunakan this
+                // gunakan fungsi search dengan luaran indeks obyek yang memenuhi
+                // buat object tempPosting           
+                Posting temPosting = new Posting(tempString[i], this);
+                int indexCari = Collections.binarySearch(result, temPosting);
                 // jika hasil cari kurang dari 0  (obyek tidak ada)
                 if (indexCari < 0) {
-                    // buat object tempPosting
-                    //tambahkan kxe Arraylist Result
-                    result.add(tempPosting);
+                    // set atribut document, gunakan this
+                    // tambahkan ke ArrayList result
+                    result.add(temPosting);
                 } else {
-                    //lainnya (objek ada)
-                    //ambil postingnya, tambahkan 1 ke numberoftermnya 
-                    //dengan fungsi 
-                    int TempNumber = result.get(indexCari).getNumberOfTerm() + 1;
-                    result.get(indexCari).setNumberOfTerm(TempNumber);
+                    // lainnya   (obyek ada)
+                    // ambil postingnya, 
+                    // tambahkan atribut numberOfTerm dengan 1
+                    // dgn fungsi get
+                    // int tempNumber = get(indekshasilCari).getNumberOfTerm()+1;
+                    int tempNumber = result.get(indexCari).getNumberOfTerm() + 1;
+                    // atau get(indekshasilcari.setNumberOfTerm(tempNumber)
+                    result.get(indexCari).setNumberOfTerm(tempNumber);
                 }
-
             }
         }
         return result;
