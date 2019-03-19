@@ -16,6 +16,8 @@ public class InvertedIndex {
 
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
     private ArrayList<Term> dictionary = new ArrayList<Term>();
+//    private ArrayList<SearchingResult> sr = new ArrayList<SearchingResult>();
+//    
 
     public InvertedIndex() {
 
@@ -286,12 +288,12 @@ public class InvertedIndex {
             int ni = getDocumentFrequency(term);
             // idf = log10(N/ni)
             double Nni = (double) N / ni;
-            double tempa=Math.log10(Nni);
-            if(tempa>0){
+            double tempa = Math.log10(Nni);
+            if (tempa > 0) {
                 return tempa;
-            }else if(tempa<0){
+            } else if (tempa < 0) {
                 return tempa;
-            }else{
+            } else {
                 return 0;
             }
         } else {
@@ -356,20 +358,18 @@ public class InvertedIndex {
 //    public double getInnerProduct(ArrayList<Posting> p1,
 //            ArrayList<Posting> p2) {
 //
-//        int post;
+//        int newTempPost;
 //        double hasil = 0;
 //
 //        for (int i = 0; i < p1.size(); i++) {
-//            post = Collections.binarySearch(p2, p1.get(i));
-//            if (post > 0) {
+//            newTempPost = Collections.binarySearch(p2, p1.get(i));
+//            if (newTempPost > 0) {
 //                hasil = hasil + (p1.get(i).getWeight() * p2.get(i).getWeight());
 //            }
 //        }
 //        return hasil;
 //    }
-    
-    public double getInnerProduct(ArrayList<Posting> p1,
-            ArrayList<Posting> p2) {
+    public double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
         // urutkan posting list
         Collections.sort(p2);
         Collections.sort(p1);
@@ -418,7 +418,13 @@ public class InvertedIndex {
     }
 
     public double getLengthOfPosting(ArrayList<Posting> posting) {
-        return 0;
+        double hasil1 = 0;
+        double hasilfin = 0;
+        for (int i = 0; i < posting.size(); i++) {
+            hasil1 = Math.pow(posting.get(i).getWeight(), 2);
+        }
+        hasilfin = Math.sqrt(hasil1);
+        return hasilfin;
     }
 
     /**
@@ -428,20 +434,42 @@ public class InvertedIndex {
      * @param posting1
      * @return
      */
+//    public double getCosineSimilarity(ArrayList<Posting> posting, ArrayList<Posting> posting1) {
+//        double sumAtas = getInnerProduct(posting1, posting);
+//        double sumBawah1 = 0.0;
+//        double sumBawah2 = 0.0;
+//
+//        for (int i = 0; i < posting.size(); i++) {
+//            sumBawah1 = sumBawah1 + Math.pow(posting.get(i).getWeight(), 2);
+//
+//            for (int j = 0; j < posting1.size(); j++) {
+//                sumBawah2 = sumBawah2 + Math.pow(posting1.get(j).getWeight(), 2);
+//            }
+//        }
+//        double bawah = Math.sqrt(sumBawah1 * sumBawah2);
+//        return sumAtas / bawah;
+//    }
     public double getCosineSimilarity(ArrayList<Posting> posting, ArrayList<Posting> posting1) {
-        double atas = getInnerProduct(posting1, posting);
-        double bawah1 = 0.0;
-        double bawah2 = 0.0;
+
+        double dotProduct = getInnerProduct(posting1, posting);
+        double sumBawah1 = 0.0;
+        double sumBawah2 = 0.0;
+        double cosineSimilarity = 0.0;
 
         for (int i = 0; i < posting.size(); i++) {
-            bawah1 = bawah1 + Math.pow(posting.get(i).getWeight(), 2);
+            dotProduct += posting.get(i).getWeight() * posting1.get(i).getWeight();
+            sumBawah1 += Math.pow(posting.get(i).getWeight(), 2);
+            sumBawah2 += Math.pow(posting.get(i).getWeight(), 2);
         }
+        sumBawah1 = Math.sqrt(sumBawah1);
+        sumBawah2 = Math.sqrt(sumBawah2);
 
-        for (int j = 0; j < posting1.size(); j++) {
-            bawah2 = bawah2 + Math.pow(posting1.get(j).getWeight(), 2);
+        if (sumBawah1 != 0.0 | sumBawah2 != 0.0) {
+            cosineSimilarity = dotProduct / (sumBawah1 * sumBawah2);
+        } else {
+            return 0.0;
         }
-        double bawah = Math.sqrt(bawah1*bawah2);
-        return atas / bawah;
+        return cosineSimilarity;
     }
 
     /**
@@ -450,9 +478,34 @@ public class InvertedIndex {
      * @param query
      * @return
      */
-    public ArrayList<Document> searchTFIDF(String query) {
-        
-        return null;
+    public ArrayList<SearchingResult> searchTFIDF(String query) {
+        ArrayList<Posting> QPost = getQueryPosting(query);
+        ArrayList<SearchingResult> sr = new ArrayList<SearchingResult>();
+        //buat objek baru dengan mengambil panjang posting
+        double panjangQuery = getLengthOfPosting(QPost);
+        //looping pncarian di doc 1-3
+        for (int i = 0; i < getListOfDocument().size(); i++) {
+            //hitung tf-idf masing-masing doc
+            ArrayList<Posting> tempPost = makeTFIDF(getListOfDocument().get(i).getId());
+            ArrayList<Posting> newTempPost = new ArrayList<>();
+            //ambil value tf-idf yang sama dengan query
+            if (query.isEmpty()) {
+                return null;
+            } else {
+                //(QPost.get(i).getWeight() == tempPost.get(i).getWeight())
+                //newTempPost.get(i).setWeight(tempPost.get(i).getWeight());
+                //cari panjang tfidf, hitung weight/panjang
+                double panjangDoc = getLengthOfPosting(tempPost);
+                double result = tempPost.get(i).getWeight() / panjangDoc;
+                //buat innerproduct dari query similarity
+                double innerProduct = getInnerProduct(QPost, tempPost);
+                //hasil innerprodct dari dokumen dimasukkan ke array
+                SearchingResult tempSR = new SearchingResult(innerProduct, tempPost.get(i).getDocument());
+                sr.add(tempSR);
+            }
+        }
+        //return array searching result
+        return sr;
     }
 
     /**
@@ -461,7 +514,28 @@ public class InvertedIndex {
      * @param query
      * @return
      */
-    public ArrayList<Document> searchCosineSimilarity(String query) {
-        return null;
+    public ArrayList<SearchingResult> searchCosineSimilarity(String query) {
+        //buat array list posting
+        ArrayList<Posting> tempPost = new ArrayList<>();
+        //buat array searching result
+        ArrayList<SearchingResult> sr = new ArrayList<SearchingResult>();
+        //looping sepanjang dokumen
+        for (int i = 0; i < getListOfDocument().size(); i++) {
+            //buat arraylist posting memakai tfidf
+            ArrayList<Posting> tempPostt = makeTFIDF(getListOfDocument().get(i).getId());
+            //cari similarity
+            double similarity = getCosineSimilarity(tempPost, tempPostt);
+            //buat dokumen dengan tipe searching result parameter similarity dan dokumen yang dipakai
+            SearchingResult tempDoc = new SearchingResult(similarity, getListOfDocument().get(i));
+            //add dokumen ke arraylist searching result
+            sr.add(tempDoc);
+
+        }
+        //collection sort
+        //Collections.sort(sr);
+        //collection reverse
+        //Collections.reverse(sr);
+        //return searching result
+        return sr;
     }
 }

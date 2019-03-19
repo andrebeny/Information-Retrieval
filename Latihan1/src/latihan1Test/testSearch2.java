@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import latihan1Model.Document;
 import latihan1Model.InvertedIndex;
 import latihan1Model.Posting;
+import latihan1Model.SearchingResult;
 import latihan1Model.Term;
 
 /**
@@ -37,19 +38,19 @@ public class testSearch2 {
 
         String query = "silver gold truck";
         System.out.println("query = " + query);
-        ArrayList<Document> hasilCari1 = index.searchTFIDF(query);
+        ArrayList<SearchingResult> hasilCari1 = index.searchTFIDF(query);
         for (int i = 0; i < hasilCari1.size(); i++) {
-            Document doc = hasilCari1.get(i);
-            System.out.println("IdDokumen = " + doc.getId());
+            SearchingResult doc = hasilCari1.get(i);
+            System.out.println("IdDokumen = " + doc.getDocument().getId());
         }
 
         // searching
         // searching
         System.out.println("query = " + query);
-        ArrayList<Document> hasilCari2 = index.searchCosineSimilarity(query);
+        ArrayList<SearchingResult> hasilCari2 = index.searchCosineSimilarity(query);
         for (int i = 0; i < hasilCari2.size(); i++) {
-            Document doc = hasilCari2.get(i);
-            System.out.println("IdDokumen = " + doc.getId());
+            SearchingResult doc = hasilCari2.get(i);
+            System.out.println("IdDokumen = " + doc.getDocument().getId());
         }
     }
 }
