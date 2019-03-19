@@ -418,13 +418,13 @@ public class InvertedIndex {
     }
 
     public double getLengthOfPosting(ArrayList<Posting> posting) {
-        double hasil1 = 0;
-        double hasilfin = 0;
+        double tempResult = 0;
+        double resultFin = 0;
         for (int i = 0; i < posting.size(); i++) {
-            hasil1 = Math.pow(posting.get(i).getWeight(), 2);
+            tempResult = Math.pow(posting.get(i).getWeight(), 2);
         }
-        hasilfin = Math.sqrt(hasil1);
-        return hasilfin;
+        resultFin = Math.sqrt(tempResult);
+        return resultFin;
     }
 
     /**
@@ -459,11 +459,10 @@ public class InvertedIndex {
         for (int i = 0; i < posting.size(); i++) {
             dotProduct += posting.get(i).getWeight() * posting1.get(i).getWeight();
             sumBawah1 += Math.pow(posting.get(i).getWeight(), 2);
-            sumBawah2 += Math.pow(posting1.get(i).getWeight(), 2);
+            for (int j = 0; j < posting1.size(); j++) {
+                sumBawah2 += Math.pow(posting1.get(i).getWeight(), 2);
+            }
         }
-//       sumBawah1 = Math.sqrt(sumBawah1);
-//       sumBawah2 = Math.sqrt(sumBawah2);
-
         if (sumBawah1 != 0.0 | sumBawah2 != 0.0) {
             cosineSimilarity = dotProduct / Math.sqrt(sumBawah1 * sumBawah2);
         } else {
