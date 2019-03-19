@@ -459,13 +459,13 @@ public class InvertedIndex {
         for (int i = 0; i < posting.size(); i++) {
             dotProduct += posting.get(i).getWeight() * posting1.get(i).getWeight();
             sumBawah1 += Math.pow(posting.get(i).getWeight(), 2);
-            sumBawah2 += Math.pow(posting.get(i).getWeight(), 2);
+            sumBawah2 += Math.pow(posting1.get(i).getWeight(), 2);
         }
-        sumBawah1 = Math.sqrt(sumBawah1);
-        sumBawah2 = Math.sqrt(sumBawah2);
+//       sumBawah1 = Math.sqrt(sumBawah1);
+//       sumBawah2 = Math.sqrt(sumBawah2);
 
         if (sumBawah1 != 0.0 | sumBawah2 != 0.0) {
-            cosineSimilarity = dotProduct / (sumBawah1 * sumBawah2);
+            cosineSimilarity = dotProduct / Math.sqrt(sumBawah1 * sumBawah2);
         } else {
             return 0.0;
         }
@@ -517,7 +517,7 @@ public class InvertedIndex {
     public ArrayList<SearchingResult> searchCosineSimilarity(String query) {
         //buat array list posting
         ArrayList<Posting> tempPost = new ArrayList<>();
-        //buat array searching result
+        //buat arraylist searching result
         ArrayList<SearchingResult> sr = new ArrayList<SearchingResult>();
         //looping sepanjang dokumen
         for (int i = 0; i < getListOfDocument().size(); i++) {
