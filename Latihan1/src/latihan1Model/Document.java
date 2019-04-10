@@ -5,6 +5,7 @@
  */
 package latihan1Model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,7 +19,7 @@ public class Document implements Comparable<Document> {
     private int id;
     private String content;
 
-    Document() {
+    public Document() {
 
     }
 
@@ -117,5 +118,9 @@ public class Document implements Comparable<Document> {
     public int compareTo(Document t) {
         //return Integer.compare(this.id, t.id);
         return id - t.getId();
+    }
+
+    public void readFile(int idDoc, File file) {
+
     }
 }

@@ -36,7 +36,7 @@ public class testSearch2 {
 
         index.makeDictionaryWithTermNumber();
 
-        String query = "silver gold truck";
+        String query = "fire shipment";
         System.out.println("query = " + query);
         ArrayList<SearchingResult> hasilCari1 = index.searchTFIDF(query);
         for (int i = 0; i < hasilCari1.size(); i++) {
