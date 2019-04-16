@@ -5,7 +5,10 @@
  */
 package latihan1Model;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -123,6 +126,21 @@ public class Document implements Comparable<Document> {
 
     public void readFile(int idDoc, File file) {
 
+        this.id = idDoc;
+        String strLine = null;
+        try {
+            FileReader inputDokumen = new FileReader(file);//membaca inputan sebuah dokumen
+            BufferedReader br = new BufferedReader(inputDokumen);
+
+            while ((strLine = br.readLine()) != null) {
+                this.setContent(strLine);
+            }
+            br.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File Not Found");
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -138,4 +156,5 @@ public class Document implements Comparable<Document> {
     public void setCosineSimilarity(double CosineSimilarity) {
         this.CosineSimilarity = CosineSimilarity;
     }
+
 }

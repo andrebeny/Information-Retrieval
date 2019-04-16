@@ -239,21 +239,25 @@ public class NewJFrame extends javax.swing.JFrame {
     private void buttonLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoadFileActionPerformed
         // TODO add your handling code here:
         Document doc = new Document();
+        String line = null;
         doc.setId(Integer.valueOf(idDoc.getText()));
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))) {
-            String line;
+            FileReader inputDokumen = new FileReader(fileChooser.getSelectedFile());//membaca inputan sebuah dokumen
+
             while ((line = br.readLine()) != null) {
-                toResult.add(line);
+                doc.setContent(line);
             }
             br.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File Not Found");
         } catch (IOException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error: " + ex.getMessage());
         }
-
-
+        toArray.add(doc);
+        //test output
+//        System.out.println(doc.getId());
+//        System.out.println(doc.getContent());
     }//GEN-LAST:event_buttonLoadFileActionPerformed
 
     private void queryInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryInputActionPerformed
