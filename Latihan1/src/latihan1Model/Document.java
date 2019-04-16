@@ -18,6 +18,7 @@ public class Document implements Comparable<Document> {
 
     private int id;
     private String content;
+    private double CosineSimilarity;
 
     public Document() {
 
@@ -122,5 +123,19 @@ public class Document implements Comparable<Document> {
 
     public void readFile(int idDoc, File file) {
 
+    }
+
+    /**
+     * @return the CosineSimilarity
+     */
+    public double getCosineSimilarity() {
+        return CosineSimilarity;
+    }
+
+    /**
+     * @param CosineSimilarity the CosineSimilarity to set
+     */
+    public void setCosineSimilarity(double CosineSimilarity) {
+        this.CosineSimilarity = CosineSimilarity;
     }
 }
