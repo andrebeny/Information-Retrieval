@@ -257,8 +257,8 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         toArray.add(doc);
         //test output
-        System.out.println(doc.getId());
-        System.out.println(doc.getContent());
+//        System.out.println(doc.getId());
+//        System.out.println(doc.getContent());
     }//GEN-LAST:event_buttonLoadFileActionPerformed
 
     private void queryInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryInputActionPerformed
