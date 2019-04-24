@@ -18,16 +18,17 @@ import org.apache.lucene.util.Version;
  *
  * @author admin
  */
-public class testStemming {
-
+public class TestStemWordToken {
     public static void main(String[] args) {
-        String text = "They will kill the lions";
-        System.out.println("Text = " + text);
+        String text = "Shipment of gold damaged in a fire";
+        System.out.println("Text = "+text);
         Version matchVersion = Version.LUCENE_7_7_0; // Substitute desired Lucene version for XY
         Analyzer analyzer = new StandardAnalyzer();
         analyzer.setVersion(matchVersion);
         // buat token
-        TokenStream tokenStream = analyzer.tokenStream("myField",new StringReader(text.trim()));
+        TokenStream tokenStream = analyzer.tokenStream(
+                "myField",
+                new StringReader(text.trim()));
         // stemming
         tokenStream = new PorterStemFilter(tokenStream);
         // buat string baru tanpa stopword
@@ -43,6 +44,6 @@ public class testStemming {
             System.out.println("Exception: " + ex);
         }
         String newText = sb.toString();
-        System.out.println("New Text = " + newText);
-    }
+        System.out.println("New Text = "+newText);
+}
 }
