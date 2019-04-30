@@ -15,7 +15,7 @@ public class TestIndonesiaStemmer {
 
     public static void main(String[] args) {
         IndonesianStemmer stem = new IndonesianStemmer();
-        String term = "mendukung";
+        String term = "memukul";
         char stemTerm[] = term.toCharArray();
         int hasil = stem.stem(stemTerm, term.length(), true);
         System.out.println(hasil);

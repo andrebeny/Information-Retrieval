@@ -23,7 +23,7 @@ import org.apache.lucene.util.Version;
 public class TestIndonesiaStopWordandStemming {
 
     public static void main(String[] args) {
-        String text = "dia memburu permainan di pusat perbelanjaan";
+        String text = "dia menendang bola kejauhan";
         System.out.println("Text = " + text);
         Version matchVersion = Version.LUCENE_7_7_0; // Substitute desired Lucene version for XY
         Analyzer analyzer = new IndonesianAnalyzer();
