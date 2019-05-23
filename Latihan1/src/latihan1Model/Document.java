@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.CharArraySet;
@@ -34,6 +33,7 @@ public class Document implements Comparable<Document> {
     private String content;
     private String realContent;
     private double CosineSimilarity;
+    private ArrayList<Posting> listOfClusteringPosting = new ArrayList<Posting>();
 
     public Document() {
 
@@ -247,7 +247,7 @@ public class Document implements Comparable<Document> {
         // ambil stopwords
         CharArraySet stopWords = IndonesianAnalyzer.getDefaultStopSet();
         // buat token
-        TokenStream tokenStream = analyzer.tokenStream("myField",new StringReader(text.trim()));
+        TokenStream tokenStream = analyzer.tokenStream("myField", new StringReader(text.trim()));
         // buang stop word
         tokenStream = new StopFilter(tokenStream, stopWords);
         // buat string baru tanpa stopword
@@ -262,8 +262,22 @@ public class Document implements Comparable<Document> {
         } catch (Exception ex) {
             System.out.println("Exception: " + ex);
         }
-        String newText = sb.toString();
-        System.out.println("New Text = " + newText);
-
+        content = sb.toString();
     }
+
+    /**
+     * @return the listOfClusteringPosting
+     */
+    public ArrayList<Posting> getListOfClusteringPosting() {
+        return listOfClusteringPosting;
+    }
+
+    /**
+     * @param listOfClusteringPosting the listOfClusteringPosting to set
+     */
+    public void setListOfPosting(ArrayList<Posting> listOfClusteringPosting) {
+        this.listOfClusteringPosting = listOfClusteringPosting;
+    }
+
+   
 }
