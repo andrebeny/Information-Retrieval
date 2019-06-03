@@ -6,28 +6,37 @@
 package latihan1Model;
 
 import java.util.ArrayList;
+
 /**
  *
  * @author User
  */
 public class Cluster {
+
     //center bisa abstrak atau object
-    
     private ArrayList<Document> member = new ArrayList<Document>();
     private Document center = new Document();
-    
-    public Cluster(){
-        
+    private int idCluster;
+
+    public Cluster() {
     }
-    
-    public ArrayList<Document> getClusterMember() {
+
+    public Cluster(int idCluster) {
+        this.idCluster = idCluster;
+    }
+
+    /**
+     * @return the member
+     */
+    public ArrayList<Document> getMember() {
         return member;
     }
 
-    
-    
-    public void setClusterMember(ArrayList<Document> clusterMember) {
-        this.member = clusterMember;
+    /**
+     * @param member the member to set
+     */
+    public void setMember(ArrayList<Document> member) {
+        this.member = member;
     }
 
     /**
@@ -44,5 +53,18 @@ public class Cluster {
         this.center = center;
     }
 
-     
+    /**
+     * @return the idCluster
+     */
+    public int getIdCluster() {
+        return idCluster;
+    }
+
+    /**
+     * @param idCluster the idCluster to set
+     */
+    public void setIdCluster(int idCluster) {
+        this.idCluster = idCluster;
+    }
+
 }

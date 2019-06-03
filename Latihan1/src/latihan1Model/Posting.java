@@ -93,4 +93,8 @@ public class Posting implements Comparable<Posting> {
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return "Posting{" + "term=" + term + ", numberOfTerm=" + numberOfTerm + ", weight=" + weight + '}';
+    }
 }
